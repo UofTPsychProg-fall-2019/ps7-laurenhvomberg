@@ -1,0 +1,38 @@
+   In this study (the possible influence of tonality on stream segregation), a 3-way repeated measures ANOVA will be conducted (I should note, however, that I’m in Design of Experiments II and may learn a different method to analyze this data in the coming weeks). The 3 (DV) factors of the ANOVA are as follows:
+-1st factor: tonality (3 levels)
+      a) C major and C major (C+C) --> same tonality
+      b) C major and G major (C+G) --> related tonality
+      c) C major and F# major (C+F#/Fs) --> different (unrelated) tonality (Fs = F-sharp)
+	-2nd factor: pitch spread (2 levels)
+		a) Small pitch spread (SPS) --> difference of 3 to 5 semitones
+		b) Large pitch spread (LPS) --> difference of 10-13 semitones
+	-3rd factor: Interonset Interval (3 levels)
+		a) Small interonset interval (IOI S) --> 125ms
+		b) Medium interonset interval (IOI M) --> 250ms
+		c) Large interonset interval (IOI L) --> 400ms
+Participants will be asked to identify how many melodies they were able to perceive as a function of the 3 factors (IV). They were asked to respond how easy/hard it was to perceive 1 or 2 melodies (on a scale of 1-6, with 1 being “easy to hear 1 melody” and 6 being “easy to hear 2 melodies”). The responses across all trials for a single participant will be averaged so that we have a single score for every participant for every factor combination (numeric values ranging from 1-6). Once we have collected enough data (~n=24), we will run 3-way ANOVAs to compare the averages of the factor combinations to see if there are any trends among and within participant responses. The IV’s will be participants (including musical backgrounds/abilities, language, and other possible confounds that could affect their responses on the DV’s). The DV’s are the factor levels (tonality, pitch spread, and IOI). Summary measures needed to answer my question will be (possible) interactions among factor levels (observed via p-values). 
+
+Pseudocode:
+
+READ DATA
+	Dataset = read_csv(total_scores.csv)
+
+ANOVA – full model
+	M1 <- aov(score ~ ton * ps * IOI, data = Dataset)
+		-ton = tonality (C+C, C+G, C+Fs)
+		-ps = pitch spread (SPS, LPS)
+		-IOI = interonset interval (IOI S, IOI M, IOI L)
+		-Score as a function of interaction of all three factors
+	Summary(M1)
+
+PLOT ANOVA
+	Plot(M1)
+
+ANOVA – removing interaction
+	M2 <- update(M1, . ~ . – ton:ps:IOI)
+	Summary(M2)
+
+COMPARE MODELS 
+Anova(M1, M2)
+
+REPORT STATISTICS
